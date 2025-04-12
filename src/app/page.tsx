@@ -4,73 +4,81 @@ import styles from "./page.module.css";
 import { useState } from 'react';
 
 const BASE = 'http://localhost:8000';
-export default function Home() {
-    const [ src, setSrc ] = useState(null);
-    const [ img, setImg ] = useState(null);
-    const [ output, setOutput ] = useState(null);
-    const handleImage = (e) => {
-        console.log('image selected :',e.target.files);
-        if (e.target.files.length){
-            const file = e.target.files[0];
-            const new_src = URL.createObjectURL(file)
-            setSrc(new_src)
-            setImg(file)
-        }
-    }
 
-    const handleSubmit = async (e) => {
+export default function Home() {
+    const [src, setSrc] = useState<string | null>(null);
+    const [img, setImg] = useState<File | null>(null);
+    const [output, setOutput] = useState<string | null>(null);
+
+    const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files.length > 0) {
+            const file = e.target.files[0];
+            const newSrc = URL.createObjectURL(file);
+            setSrc(newSrc);
+            setImg(file);
+        }
+    };
+
+    const handleSubmit = async (e: React.FormEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        console.log('submit')
-        const url = `${BASE}/upload`;
-        try{
+        if (!img) return;
+
+        try {
             const formData = new FormData();
             formData.append('image', img);
-            const res = await fetch(url, {
-                method : 'POST',
-                body : formData,
+
+            const res = await fetch(`${BASE}/upload`, {
+                method: 'POST',
+                body: formData,
             });
+
             const response = await res.json();
-            console.log('response from server :',response);
-            setOutput(response);
-        }catch(err){
-            console.log('error in handleSubmit :', err);
+            setOutput(response?.result || JSON.stringify(response));
+        } catch (err) {
+            console.error("Error uploading image:", err);
+            setOutput("Failed to process image.");
         }
-    }
+    };
+
     return (
         <div className={styles.page}>
-            <div className ={styles.input}>
-                <div className={styles.control}> 
+            <div className={styles.input}>
+                <div className={styles.control}>
                     <label>
-                    select an Image
-                        <input 
-                        type="file"
-                        accept="image/*"
-                        onChange={handleImage}
-                        className={styles.input}
+                        Select an Image
+                        <input
+                            type="file"
+                            accept="image/*"
+                            onChange={handleImage}
+                            className={styles.inputFile}
                         />
                     </label>
                 </div>
+
                 <div className={styles.preview}>
-                    <p> preview of image </p>
-                    <img
-                        className={styles.img}
-                        src = {src}
-                        alt = "preview image"
-                    />
+                    {src ? (
+                        <img src={src} alt="Preview" className={styles.img} />
+                    ) : (
+                        <div className={styles.placeholder}>No image selected</div>
+                    )}
                 </div>
+
                 <button
-                    onClick = {handleSubmit}
+                    className={`${styles.button} ${img ? styles.activeButton : styles.disabledButton}`}
+                    onClick={handleSubmit}
+                    disabled={!img}
                 >
-                    Submit
+                    Check Vibration
                 </button>
             </div>
-            <div id ={styles.output}>
-                <p> output </p>
-                { output &&
-                    <>
-                        <p> {output} </p>
-                    </>
-                }
+
+            <div id={styles.output}>
+                <h2>Analysis Results</h2>
+                {output ? (
+                    <p>{output}</p>
+                ) : (
+                    <p className={styles.placeholderText}>Select an image to begin</p>
+                )}
             </div>
         </div>
     );
