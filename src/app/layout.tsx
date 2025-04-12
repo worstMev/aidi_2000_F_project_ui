@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AI Image Classifier",
+  title: "Vibration VIbe Checker",
   description: "Upload images for AI classification",
 };
 
@@ -26,7 +26,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <div className = "header">
-            <h1>AI Image Classifier</h1>
+            <h1>Vibration VIbe Checker</h1>
         </div>
         {children}
       </body>
