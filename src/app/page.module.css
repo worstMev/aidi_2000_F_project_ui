@@ -1,100 +1,146 @@
-.page{
-    border : 1px solid red;
-    width : 90%;
-    height: 90%;
-    display : flex;
-    flex-direction : row;
-    justify-content : center;
-    align-items : center;
+.page {
+    width: 90%;
+    height: 90vh;
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 2rem;
+    padding: 2rem 0;
 }
 
-.page > div{
-    border : 1px solid green;
-    width : 45%;
-    display : flex;
-    flex-direction : column;
-    justify-content : space-around;
-    height : 90%;
-    padding : 5px;
-}
-
-.preview{
-    border : 1px dashed blue;
-    height : 80%;
+.page > div {
+    width: 48%;
+    border: 1px solid green; /* Optional: for debugging layout */
     display: flex;
     flex-direction: column;
+    padding: 1rem;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    background: #f9fafb;
+    border-radius: 0.5rem;
+}
+
+.inputFile {
+    display: none;
+}
+
+.control > label {
+    display: block;
+    padding: 0.5rem 1rem;
+    background: #e2e8f0;
+    border: 1px solid #cbd5e1;
+    border-radius: 0.375rem;
+    text-align: center;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s ease-in-out;
+    letter-spacing: 0.02em;
+}
+
+
+.preview {
+    margin: 1rem 0;
+    height: 300px;
+    border: 2px dashed #60a5fa;
+    background: #f1f5f9;
+    border-radius: 0.5rem;
+    display: flex;
     align-items: center;
     justify-content: center;
-    margin: 1rem 0;
-    border-radius: 0.375rem;
-    background: #f8fafc; /* Light background for empty state */
-    position: relative;
     overflow: hidden;
+    position: relative;
 }
 
-/* Style for when no image is selected */
-.preview:empty::before {
-    content: "Image Preview";
-    color: #64748b;
-    font-size: 0.875rem;
-}
+/* General Text Styling */
+body {
+    font-family: 'Geist', sans-serif;
+    font-weight: 400; /* Default normal weight for text */
+    letter-spacing: 0.02em; /* Smooth out text spacing */
+  }
+  
+  /* Improve placeholder contrast */
+  .placeholderText {
+    color: #475569; /* Darker color for better visibility */
+    font-size: 1rem;
+    font-weight: 500; /* Slightly bolder placeholder text */
+    letter-spacing: 0.01em;
+  }
+  
+  /* Button Styling */
+  .button {
+    font-weight: 600; /* Medium weight for the button text */
+    letter-spacing: 0.02em;
+  }
 
-.input{
-    display : none;
-}
-
-.img{
+.img {
     max-width: 100%;
-    max-height: 300px;
+    max-height: 100%;
+    object-fit: contain;
     border-radius: 0.375rem;
-    border: 1px solid var(--border)
 }
 
+
+/* Button Styling */
 .button {
-    background: var(--primary);
+    background-color: #3b82f6;
     color: white;
+    font-weight: 600;
     border: none;
     padding: 0.75rem 1.5rem;
     border-radius: 0.375rem;
-    font-weight: 500;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: background 0.2s, transform 0.1s ease-in-out;
     width: 100%;
-    margin-top: auto; /* Pushes button to bottom */
-}
+    margin-top: auto;
+    letter-spacing: 0.02em; /* Adding letter-spacing for smoother text */
+  }
   
-.button:hover {
-    background: var(--primary-dark);
-}
-
-.button:disabled {
-    background: #cbd5e1;
+  .button:hover {
+    background-color: #2563eb;
+    transform: scale(1.05); /* Slight scale-up effect */
+  }
+  
+  .button:focus {
+    outline: 2px solid #2563eb;
+    outline-offset: 2px;
+  }
+  
+  .button:disabled {
+    background-color: #cbd5e1;
     cursor: not-allowed;
-}
+  }
+  
+  /* Active (enabled) button styling */
+  .activeButton {
+    background-color: #3b82f6;
+  }
+  
+  .activeButton:hover {
+    background-color: #2563eb;
+    transform: scale(1.05);
+  }
+  
+  /* Disabled button styling */
+  .disabledButton {
+    background-color: #e2e8f0;
+    cursor: not-allowed;
+  }
 
-.control > label{
-    border : 1px solid grey;
-    padding : 5px;
-    border-radius : 2px;
-    display: inline-block;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    width: 100%;
-    background: var(--background);
-    font-weight: 500;
-}
-
-.control > label:hover{
-    background : grey;
-    color : white;
-    border-color: var(--primary);
-}
-
-#output{
-    display : flex;
-    flex-direction : column;
-    justify-content : flex-start;
+#output {
+    display: flex;
+    flex-direction: column;
     gap: 1rem;
-    overflow-y: auto; /* Enable scrolling if content is long */
+    overflow-y: auto;
+}
+
+#output h2 {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.placeholderText {
+    color: #475569;
+    font-size: 0.9rem;
 }
