@@ -58,7 +58,7 @@ export default function Home() {
                         alt = "preview image"
                     />
                 </div>
-                <button
+                <button className={styles.button}
                     onClick = {handleSubmit}
                 >
                     Submit
