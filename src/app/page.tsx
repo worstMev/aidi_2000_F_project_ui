@@ -5,7 +5,10 @@ import Image from "next/image";
 import styles from "./page.module.css";
 import { useState } from 'react';
 
-const BASE = 'http://localhost:8000';
+const LOCAL = 'http://localhost:8000';
+const SERVER = 'http://3.22.71.226:8000';
+const BASE = SERVER;
+
 
 export default function Home() {
     const [src, setSrc] = useState<string | null>(null);
